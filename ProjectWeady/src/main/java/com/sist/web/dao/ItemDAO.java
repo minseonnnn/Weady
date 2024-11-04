@@ -22,6 +22,7 @@ public interface ItemDAO extends JpaRepository<ItemEntity, Integer>{
 	        +"LIMIT :start,31",nativeQuery = true)
     public List<ItemVO> itemFindData(@Param("start") int start,@Param("name") String name,@Param("brandname") String brandname);
 
+	
     @Query(value ="SELECT CEIL(COUNT(*)/31.0) "
 	             +"FROM item "
 	             +"WHERE name LIKE CONCAT('%',:name,'%') "
