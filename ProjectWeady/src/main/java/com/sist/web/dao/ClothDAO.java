@@ -10,8 +10,9 @@ import com.sist.web.entity.*;
 @Repository
 public interface ClothDAO extends JpaRepository<ClothEntity, Integer> {
 	// 랜덤 12개 출력
-	@Query(value = "SELECT cno,season,tag,poster,hit,likecount " + "FROM cloth ORDER BY rand() "
-			+ "LIMIT 0,12", nativeQuery = true)
+	@Query(value = "SELECT cno,season,tag,poster,hit,likecount " 
+	             + "FROM cloth ORDER BY rand() "
+			     + "LIMIT 0,12", nativeQuery = true)
 	public List<ClothVO> clothRandom();
 
 	public ClothEntity findBycno(int cno);
@@ -27,18 +28,18 @@ public interface ClothDAO extends JpaRepository<ClothEntity, Integer> {
 
 	// 계절별 코디 베스트
 	@Query(value = "SELECT cno,season,tag,poster,hit,likecount " + "FROM cloth " + "WHERE season=:season "
-			+ "ORDER BY hit DESC " + "LIMIT 100", nativeQuery = true)
+			     + "ORDER BY hit DESC " + "LIMIT 100", nativeQuery = true)
 	public List<ClothVO> SeasonBestListData(@Param("season") String season);
 
 	// 태그별 코디 목록
 	@Query(value = "SELECT cno,season,tag,poster,hit,likecount " + "FROM cloth "
-			+ "WHERE tag LIKE CONCAT('%', :tag, '%') " + "ORDER BY hit DESC " + "LIMIT :start,32", nativeQuery = true)
+			     + "WHERE tag LIKE CONCAT('%', :tag, '%') " + "ORDER BY hit DESC " + "LIMIT :start,32", nativeQuery = true)
 	public List<ClothVO> CodiTagListData(@Param("start") int start, @Param("tag") String tag);
 
 	// 태그별 코디 목록 페이징
 	@Query(value = "SELECT CEIL(COUNT(*)/32.0) " 
-	        + "FROM cloth "
-			+ "WHERE tag LIKE CONCAT('%', :tag, '%')", nativeQuery = true)
+	             + "FROM cloth "
+			     + "WHERE tag LIKE CONCAT('%', :tag, '%')", nativeQuery = true)
 	public int CodiTagTotalPage(@Param("tag") String tag);
 
 }
