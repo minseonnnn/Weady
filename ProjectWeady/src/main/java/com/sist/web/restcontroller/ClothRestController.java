@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.web.entity.*;
+import com.sist.web.manager.NewsSearchManager;
 import com.sist.web.dao.*;
 
 @RestController
@@ -22,13 +23,18 @@ public class ClothRestController {
 	@Autowired
 	private ItemDAO iDao;
 
+	@Autowired
+	private NewsSearchManager m;
 	@GetMapping("cloth/main_react")
 	public ResponseEntity<Map> clothRandomData() {
 		Map map = new HashMap();
 		try
 		{
 			List<ClothVO> cList = cDao.clothRandom();
+			List<NewsVO> nList=m.newsFind("룩북");
 			map.put("cList", cList);
+			map.put("nList", nList);
+			
 			System.out.println(map);
 		  }catch(Exception ex)
 		  {
