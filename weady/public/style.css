@@ -1,0 +1,571 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Prata&Gowun+Batang&family=Prata&family=Gowun+Dodum&family=Jua&family=Noto+Sans+KR:wght@100..900&display=swap");
+/*
+Theme Name: Caret - Bootstrap 5 online shop HTML CSS Template
+Theme URI: https://templatejungle.com/
+Author: TemplatesJungle
+Author URI: https://templatejungle.com/
+Description: Caret - Bootstrap 5 online shop HTML CSS Template is specially designed shop packaged for online shops by TemplatesJungle.
+Version: 1.1
+*/
+
+/*--------------------------------------------------------------
+This is main CSS file that contains custom style rules used in this template
+--------------------------------------------------------------*/
+
+/*------------------------------------*\
+    Table of contents
+\*------------------------------------*/
+
+/*------------------------------------------------
+CSS STRUCTURE:
+
+1. VARIABLES
+2. GENERAL TYPOGRAPHY
+
+--------------------------------------------------------------*/
+
+body {
+  --heading-font: "Prata", Georgia, serif;
+  --heading-font-weight: 400;
+  --heading-color: #413F3D;
+  --heading-line-height: 1.24;
+
+  --swiper-theme-color: #8C907E;
+
+  /* bootstrap */
+  --bs-body-font-family: "Lora", Georgia, serif;
+  --bs-body-font-size: 16px;
+  --bs-body-font-weight: 400;
+  --bs-body-line-height: 1.5;
+  --bs-body-color: #696866;
+  --bs-body-color-rgb: 1.6, 1.6, 1.6;
+  --bs-body-bg-rgb: 248, 248, 241;
+  --bs-body-bg: #F8F8F1;
+
+  --bs-primary: #E8E6D2;
+  --bs-secondary: #ABA994;
+  --bs-black: #111;
+  --bs-white: #fff;
+  --bs-light: #f8f8f8;
+  --bs-dark: #212529;
+  --bs-gray: #9aa1a7;
+  --bs-gray-dark: #51565b;
+
+  --bs-primary-rgb: 221, 79, 70;
+  --bs-secondary-rgb: 240, 240, 233;
+  --bs-black-rgb: 17, 17, 17;
+  --bs-light-rgb: 241, 241, 240;
+  --bs-dark-rgb: 33, 37, 41;
+
+  --bs-link-color: #111;
+  --bs-link-color-rgb: 17, 17, 17;
+  --bs-link-decoration: underline;
+  --bs-link-hover-color: #111;
+  --bs-link-hover-color-rgb: 17, 17, 17;
+
+  --bs-border-color : #D6D6BE !important;
+  --bs-border-secondary-color : #D6D6BE !important;
+}
+
+b, strong {
+  font-weight: normal;
+}
+
+.prata-regular {
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.noto-sans {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.jua-regular {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.gowun-batang-regular {
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.gowun-dodum-regular {
+  font-family: "Gowun Dodum", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.scrollable-text {
+  width: 100%; /* 부모 요소의 너비에 맞추기 */
+  overflow: hidden; /* 기본적으로 overflow hidden */
+}
+
+.scrollable-text h2 {
+  display: block; /* 블록 요소로 설정 */
+  white-space: nowrap; /* 한 줄로 유지 */
+  text-overflow: ellipsis; /* ellipsis 적용 */
+  overflow: hidden; /* 넘치는 내용 숨기기 */
+  transition: transform 0.3s linear; /* 애니메이션 부드럽게 진행 */
+}
+
+/* 호버 시 애니메이션 추가 */
+.scrollable-text:hover h2[data-long="true"] {
+  animation: scroll 0.8s linear forwards; /* 애니메이션이 한 번만 실행되도록 */
+  text-overflow: clip; /* ellipsis 제거 */
+  overflow: visible; /* 호버 시 overflow visible로 변경 */
+}
+
+/* 스크롤 애니메이션 */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%); /* 오른쪽 시작 */
+  }
+  100% {
+    transform: translateX(-80%); /* 왼쪽 끝까지 이동 */
+  }
+}
+
+/* 긴 텍스트일 경우 ellipsis 유지 */
+.scrollable-text h2[data-long="true"] {
+  /* 추가 CSS가 필요 없을 수 있습니다 */
+}
+
+/* 짧은 텍스트일 경우 처리 */
+.scrollable-text h2[data-long="false"] {
+  white-space: normal; /* 여러 줄로 표시 */
+  overflow: visible; /* 넘치는 내용 표시 */
+}
+
+.image-holder img {
+  width: 100%; /* 부모 요소의 너비에 맞춤 */
+  height: auto; /* 비율을 유지하며 높이에 맞춤 */
+  object-fit: contain; /* 이미지 비율 유지, 잘리지 않도록 */
+}
+
+.price {
+  color: olive; /* 올리브색 */
+}
+
+.pagination {
+  display: inline-flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination .page-item {
+  margin: 0 5px;
+}
+
+.pagination .page-link {
+  color: #808000; /* 글씨 색상: 올리브색 */
+  border: 2px solid #808000; /* 테두리 색상: 올리브색 */
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.pagination .page-link:hover,
+.pagination .page-link:focus,
+.pagination .active .page-link {
+  background-color: #808000; /* 배경색: 올리브색 */
+  color: white; /* 글씨 색상: 화이트 */
+}
+body {
+  letter-spacing: 0.03rem;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-font-weight);
+  color: var(--heading-color);
+  line-height: var(--heading-line-height);
+}
+
+h1.light,
+.h1,
+h2.light,
+.h2,
+h3.light,
+.h3,
+h4.light,
+.h4,
+h5.light,
+.h5,
+h6.light,
+.h6 {
+  color: var(--bs-light);
+}
+
+h1,
+h2,
+h3 {
+  margin: 25px 0;
+}
+
+h5,
+h6 {
+  letter-spacing: 1px;
+}
+
+h1,
+.h1 {
+  font-size: 4.5rem;
+}
+
+h2,
+.h2 {
+  font-size: 3.6rem;
+}
+
+h3,
+.h3 {
+  font-size: 2.8rem;
+}
+
+h4,
+.h4 {
+  font-size: 1.8rem;
+}
+
+h5,
+.h5 {
+  font-size: 1.4rem;
+}
+
+h6,
+.h6 {
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* container fluid */
+.container-fluid {
+  max-width: 1800px;
+}
+
+@media (min-width: 1600px) {
+  .container, .container-lg {
+    max-width: 1500px;
+  }
+  .container, .container-md {
+    max-width: 1200px;
+  }
+}
+
+/* list group */
+.list-group-item {
+  --bs-list-group-item-padding-x: 0;
+  --bs-list-group-border-width: 0;
+}
+
+/* btn */
+.btn {
+  --bs-btn-border-radius: 0;
+}
+
+.btn-arrow {
+  background: none; /* 배경 제거 */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 커서 포인터로 변경 */
+  padding: 0; /* 패딩 제거 */
+  font-size: 24px; /* 아이콘 크기 조정 */
+  color: #000; /* 아이콘 색상 */
+  transition: color 0.3s; /* 색상 전환 효과 */
+}
+
+.btn-arrow:hover {
+  color: olivedrab; /* 호버 시 색상 변경 */
+}
+
+.btn-primary {
+  --bs-btn-color: var(--bs-light);
+  --bs-btn-bg: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-color: var(--bs-light);
+  --bs-btn-hover-bg: var(--bs-dark);
+  --bs-btn-hover-border-color: var(--bs-dark);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: var(--bs-light);
+  --bs-btn-active-bg: var(--bs-dark);
+  --bs-btn-active-border-color: var(--bs-dark);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--bs-light);
+  --bs-btn-disabled-bg: var(--bs-primary);
+  --bs-btn-disabled-border-color: var(--bs-primary);
+}
+
+.btn-outline-dark.btn-bg-primary {
+  --bs-btn-bg: var(--bs-primary);
+}
+
+.btn-group-lg>.btn, .btn-lg {
+  --bs-btn-padding-y: 1rem;
+  --bs-btn-padding-x: 2.8rem;
+  --bs-btn-font-size: 1.25rem;
+}
+
+.btn.btn-shadow {
+  box-shadow: 0px 6px 39px 0px rgba(91, 45, 42, 0.20);
+}
+
+/* text white */
+.text-white {
+  --heading-color: var(--bs-light);
+  --bs-breadcrumb-item-active-color: var(--bs-light);
+  --bs-breadcrumb-divider-color: var(--bs-light);
+  --bs-link-color-rgb: var(--bs-light-rgb);
+  --bs-link-hover-color-rgb: var(--bs-light-rgb);
+}
+
+.text-white .nav-link {
+  --bs-nav-link-color: var(--bs-light);
+  --bs-nav-link-hover-color: var(--bs-light);
+  --bs-nav-link-active-color: var(--bs-light);
+  --bs-navbar-active-color: var(--bs-light);
+}
+
+/* preloader */
+.preloader {
+  position: fixed;
+  z-index: 99;
+  background: var(--bs-dark);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: height 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.preloader.loaded {
+  height: 0;
+}
+
+/* navbar */
+.navbar.fixed-top {
+  transition: background-color 0.6s ease-out;
+}
+
+/* margin */
+.my-lg-6 {
+  margin-top: 4.5rem!important;
+  margin-bottom: 4.5rem!important;
+}
+.my-lg-7 {
+  margin-top: 6rem!important;
+  margin-bottom: 6rem!important;
+}
+.my-lg-8 {
+  margin-top: 8.5rem!important;
+  margin-bottom: 8rem!important;
+}
+.my-lg-9 {
+  margin-top: 10rem!important;
+  margin-bottom: 10rem!important;
+}
+.my-lg-10 {
+  margin-top: 12.5rem!important;
+  margin-bottom: 12.5rem!important;
+}
+
+/* padding */
+.py-lg-6 {
+  padding-top: 4.5rem!important;
+  padding-bottom: 4.5rem!important;
+}
+.py-lg-6-i {
+  padding-top: 3rem!important;
+  padding-bottom: 2rem!important;
+}
+.py-lg-7 {
+  padding-top: 6rem!important;
+  padding-bottom: 6rem!important;
+}
+.py-lg-8 {
+  padding-top: 8.5rem!important;
+  padding-bottom: 8rem!important;
+}
+.py-lg-9 {
+  padding-top: 10rem!important;
+  padding-bottom: 10rem!important;
+}
+.py-lg-10 {
+  padding-top: 12.5rem!important;
+  padding-bottom: 12.5rem!important;
+}
+
+/* - Background Color
+------------------------------------------------------------- */
+.bg-white-trans {
+  --bs-bg-opacity: 0.6;
+  background-color: rgba(var(--bs-white-rgb),var(--bs-bg-opacity))!important;
+}
+
+/* - Border Radius
+------------------------------------------------------------- */
+.rounded-6 {
+  border-radius: 3rem;
+}
+.rounded-top-right {
+  border-top-right-radius: 30px;
+}
+.rounded-bottom-right {
+  border-bottom-right-radius: 30px;
+}
+.rounded-top-left {
+  border-top-left-radius: 30px;
+}
+.rounded-bottom-left {
+  border-bottom-left-radius: 30px;
+}
+
+/* - Svg Color
+------------------------------------------------------------- */
+.svg-primary {
+  fill: var(--bs-primary);
+  color: var(--bs-primary);
+}
+.svg-secondary {
+  fill: var(--bs-secondary);
+  color: var(--bs-secondary);
+}
+.svg-yellow {
+  fill: var(--bs-yellow);
+  color: var(--bs-yellow);
+}
+
+/* - circle-pattern
+------------------------------------------------------------*/
+.circle-pattern::after {
+  position: absolute;
+  content: "";
+  background-color: var(--bs-primary);
+  top: -48px;
+  right: 42%;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* - Sticky Header
+------------------------------------------------------------- */
+.site-header {
+  background-color: transparent;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+.site-header.sticky{
+  background-color: var(--bs-body-bg);
+}
+
+/* - Video
+------------------------------------------------------------- */
+#video-player .player {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#video-player .player .play-btn {
+  width: 70px;
+  height: 70px;
+}
+#video-player .play-btn:hover {
+  --bs-bg-opacity: 1;
+}
+
+/* - Single Product
+------------------------------------------------------------- */
+#product-detail img {
+  width: 100%;
+  min-height: 700px;
+  object-fit: cover;
+}
+.product-info .color-product-options .color-item {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.product-info .color-product-options .color-item span {
+  border: 2px solid var(--bs-light);
+  width: 100%;
+  height: 100%;
+  transition: 0.3s ease-in-out;
+}
+
+/* - Subscribe
+------------------------------------------------------------- */
+#form svg.send {
+  right: 0;
+  bottom: 50px;
+}
+.social-links li:hover {
+  background-color: var(--bs-primary);
+}
+
+.recent-codi-container {
+  position: fixed;
+  right: 20px;
+  bottom: 10px;
+  width: 165px;
+  background-color: #ffffff;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+  transition: height 0.3s ease;
+  overflow: hidden;
+}
+
+.recent-codi-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recent-codi-content {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.recent-codi-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recent-codi-content li {
+  margin: 5px;
+}
+
+.recent-codi-content img {
+  border-radius: 8px;
+  display: block;
+}
