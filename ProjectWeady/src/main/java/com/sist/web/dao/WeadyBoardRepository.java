@@ -7,10 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.sist.web.entity.*;
 @Repository
 public interface WeadyBoardRepository extends ElasticsearchRepository<WeadyBoard, Integer>{
-	// 상세보기
-    //	public EBoard findById(int id);
-	// 전체 데이터 검색 findAll()
-	// 수정 , 추가 save()
-	// 삭제 => delete()
+
 	
 }

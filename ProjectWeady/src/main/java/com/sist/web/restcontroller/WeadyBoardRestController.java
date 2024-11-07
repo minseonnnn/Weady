@@ -5,9 +5,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.web.dao.WeadyBoardRepository;
@@ -15,20 +20,15 @@ import com.sist.web.entity.*;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-@RestController  // => 다른 언어와 연결 : javascript(ajax,vue,react)
-                 // => 모바일 (kotlin , flutter)
-                 // => python
-                 // => 호환성 : xml => json
-                 // => 자동으로 JSON출력
-                 // => Rest API => GET(데이터를 읽기 : SELECT)
-                 // POST (데이터 추가) / PUT(데이터 수정) / DELETE(데이터 삭제)
+@RestController  
+
 @CrossOrigin(origins = "*")
 public class WeadyBoardRestController {
    @Autowired
    private WeadyBoardRepository bDao;
 
-   @GetMapping("board/list_react")
-   public Map board_list(int page){
+   @GetMapping("board/list/{page}")
+   public Map board_list(@PathVariable("page") int page){
 	   int rowSize=10;
 	   Pageable pg=PageRequest.of(page-1, rowSize,Sort.by(Sort.Direction.DESC,"id"));
 	   
@@ -49,24 +49,14 @@ public class WeadyBoardRestController {
 	   return map;
 	   
    }
-   @PostMapping("board/insert_react")
-   public String board_insert(WeadyBoard vo)
+   @PostMapping("board/insert")
+   public void board_insert(@RequestBody WeadyBoard vo)
    {
-	   String result="";
-	   try
-	   {
 		   vo.setHit(0);
 		   vo.setId(idMaxData());
 		   vo.setRegdate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		   
 		   bDao.save(vo);
-		   
-		   result="yes";
-	   }catch(Exception ex)
-	   {
-		   result=ex.getMessage();
-	   }
-	   return result;
    }
    // 시퀀스
    public int idMaxData() {
@@ -91,55 +81,53 @@ public class WeadyBoardRestController {
 	   return max+1;
    }
    // 상세보기
-   @GetMapping("board/detail_react")
-   public WeadyBoard board_detail(int id)
+   @GetMapping("board/detail/{id}")
+   public ResponseEntity<WeadyBoard> board_detail(@PathVariable("id") int id)
    {
-	   WeadyBoard vo=bDao.findById(id).get();
-	   vo.setHit(vo.getHit()+1);
-	   bDao.save(vo);
-	  
-	   vo=bDao.findById(id).get();
-	   return vo;
-   }
-   @GetMapping("eboard/update_react")
-   public WeadyBoard board_update(int id)
-   {
-	   WeadyBoard vo=bDao.findById(id).get();
-	   return vo;
-   }
-   @PostMapping("board/update_ok_react")
-   public String board_update_ok(WeadyBoard vo)
-   {
-	   String result="";
-	   WeadyBoard dbvo=bDao.findById(vo.getId()).get();
-	   /*if(dbvo.getPwd().equals(vo.getPwd()))
+	   try
 	   {
+		   WeadyBoard vo=bDao.findById(id).get();
+		   vo.setHit(vo.getHit()+1);
+		   bDao.save(vo);
+		  
+		   vo=bDao.findById(id).get();
+		   System.out.println(vo);
+		   return new ResponseEntity<>(vo,HttpStatus.OK);
+	   }catch(Exception ex)
+		  {
+			  return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		  }
+   }
+   @GetMapping("board/update/{id}")
+   public ResponseEntity<WeadyBoard> board_update(@PathVariable("id") int id)
+   {
+	   try
+	   {
+		   WeadyBoard vo=bDao.findById(id).get();   
+		   return new ResponseEntity<>(vo,HttpStatus.OK);
+	   }catch(Exception ex)
+		  {
+			  return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		  }
+   }
+   @PutMapping("board/update_ok")
+   public void board_update_ok(@RequestBody WeadyBoard vo)
+   {
+	   WeadyBoard dbvo=bDao.findById(vo.getId()).get();
 		   vo.setHit(dbvo.getHit());
 		   vo.setRegdate(dbvo.getRegdate());
-		   bDao.save(vo); // 수정
-		   result="yes";
-	   }
-	   else
-	   {
-		   result="no";
-	   }*/
-	   return result;
+		   vo.setUserid(dbvo.getUserid());
+		   vo.setName(dbvo.getName());
+		   bDao.save(vo); 
+		   
    }
    @GetMapping("board/delete_ok_react")
-   public String board_delete(int id,String pwd)
+   public void board_delete(int id,String pwd)
    {
 	   String result="";
 	   WeadyBoard vo=bDao.findById(id).get();
-	   /*if(vo.getPwd().equals(pwd))
-	   {
 		   bDao.delete(vo);
-		   result="yes";
-	   }
-	   else
-	   {
-		   result="no";
-	   }*/
-	   return result;
+	
    }
 }
 
