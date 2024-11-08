@@ -159,5 +159,24 @@ public class ClothRestController {
     	}
     	return new ResponseEntity<>(map,HttpStatus.OK);
 	}
+	@GetMapping("/cloth/weatherComm/{page}/{str}")
+	public ResponseEntity<Map> clothWeatherComm(@PathVariable("page")int page, @PathVariable("str")String str){
+		Map map=new HashMap();
+		try {
+			str=str.replaceAll(",", "|");
+			int rowSize=32;
+			int start=(rowSize*page)-rowSize;
+			List<ClothVO> list=cDao.clothTagFind(str, start);
+			int count=cDao.clothTagFindCount(str);
+			int totalpage=(int)(Math.ceil(count/32.0));
+			map.put("list", list);
+			map.put("count", count);
+			map.put("totalpage", totalpage);
+			map.put("curpage", page);
+			return new ResponseEntity<>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }

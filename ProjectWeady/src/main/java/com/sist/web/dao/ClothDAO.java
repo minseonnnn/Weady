@@ -41,5 +41,11 @@ public interface ClothDAO extends JpaRepository<ClothEntity, Integer> {
 	             + "FROM cloth "
 			     + "WHERE tag LIKE CONCAT('%', :tag, '%')", nativeQuery = true)
 	public int CodiTagTotalPage(@Param("tag") String tag);
-
+	
+	@Query(value = "SELECT * FROM cloth WHERE tag REGEXP :strs ORDER BY cno DESC LIMIT :start, 32", nativeQuery = true)
+	public List<ClothVO> clothTagFind(@Param("strs")String strs, @Param("start")int start);
+	
+	@Query(value = "SELECT COUNT(*) FROM cloth WHERE tag REGEXP :strs", nativeQuery = true)
+	public int clothTagFindCount(@Param("strs")String strs);
+	
 }
