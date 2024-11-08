@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,7 @@ public class WeadyBoardRestController {
 	   int totalpage=(int)(Math.ceil(count/10.0));
 	   Map map=new HashMap();
 	   map.put("list", list);
+	   map.put("count", count);
 	   map.put("curpage", page);
 	   map.put("totalpage", totalpage);
 	   map.put("today", new SimpleDateFormat("yyy-MM-dd").format(new Date()));
@@ -110,6 +112,12 @@ public class WeadyBoardRestController {
 			  return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 		  }
    }
+  @DeleteMapping("board/delete/{id}")
+   public void board_delete(@PathVariable("id") int id)
+   {
+		   WeadyBoard vo=bDao.findById(id).get();   
+		   bDao.delete(vo);
+   }
    @PutMapping("board/update_ok")
    public void board_update_ok(@RequestBody WeadyBoard vo)
    {
@@ -121,13 +129,6 @@ public class WeadyBoardRestController {
 		   bDao.save(vo); 
 		   
    }
-   @GetMapping("board/delete_ok_react")
-   public void board_delete(int id,String pwd)
-   {
-	   String result="";
-	   WeadyBoard vo=bDao.findById(id).get();
-		   bDao.delete(vo);
-	
-   }
+ 
 }
 
