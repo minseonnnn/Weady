@@ -14,6 +14,9 @@ import WeatherRecomm from "./components/weather/WeatherRecomm"
 import Login from "./components/member/Login"
 import Join from "./components/member/Join";
 import List from "./components/board/List";
+import Detail from "./components/board/Detail";
+import Insert from "./components/board/Insert";
+import Update from "./components/board/Update";
 
 function App() {
     const [isLogin, setIsLogin] = useState(false)
@@ -46,10 +49,13 @@ function App() {
                     <Route path={"/shop/Shopdetail/:ino"} element={<Shopdetail/>}/>
                     <Route path={"/cloth/CodiDetail/:cno"} element={<CodiDetail/>}/>
                     <Route path={"/cloth/SeasonBest"} element={<SeasonBest/>}/>
-                    <Route path={"/weather/WeatherReComm"} element={<WeatherRecomm/>}/>
+                    <Route path={"/weather/WeatherReComm/:str"} element={<WeatherRecomm/>}/>
                     <Route path={"/member/Login"} element={<Login handleLogin={handleLogin}/>}/>
                     <Route path={"/member/Join"} element={<Join/>}/>
                     <Route path={"/board/List"} element={<List/>}/>
+                    <Route path={"/board/detail/:id"} element={<Detail/>}/>
+                    <Route path={"/board/insert"} element={<Insert/>}/>
+                    <Route path={"/board/update/:id"} element={<Update/>}/>
                 </Routes>
                 <Footer/>
             </Router>
@@ -57,4 +63,4 @@ function App() {
     )
 }
 
-export default App;
+export default App

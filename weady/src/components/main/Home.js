@@ -1,6 +1,6 @@
-import {Fragment} from "react"
+import {Fragment, useEffect} from "react"
 import axios from "axios";
-import {useState,useEffect,useRef} from "react";
+import {useState} from "react";
 import {Link} from "react-router-dom";
 import apiClient from "../../http-commons"
 import {useQuery} from "react-query"
@@ -8,6 +8,10 @@ import {useQuery} from "react-query"
 function Home() {
     const [mainData, setMainData] = useState([])
     const [weather, setWeather] = useState(null)
+    const [mood, setMood] = useState('')
+    useEffect(()=>{
+        console.log(mood)
+    }, [mood])
 
     const formatDate = (date) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -73,7 +77,21 @@ function Home() {
             })
 
             setWeather(weatherInfo)
-            console.log(weatherInfo)
+            if(Math.round(weatherInfo.maxTemp)>=28){
+                setMood('폭염,홀터넥')
+            }
+            else if(Math.round(weatherInfo.maxTemp)>=21){
+                setMood('린넨')
+            }
+            else if(Math.round(weatherInfo.maxTemp)>=17){
+                setMood('환절기')
+            }
+            else if(Math.round(weatherInfo.maxTemp)>=7){
+                setMood('얼죽코')
+            }
+            else{
+                setMood('한파,방한')
+            }
         } catch (error) {
             console.error("Error fetching weather data:", error)
         }
@@ -137,7 +155,7 @@ function Home() {
                                     </div>
                                 )}
                                 <p style={{"marginBottom": "0px"}}>오늘 날씨에 맞는 옷을 확인해보세요!</p>
-                                <Link to={'/weather/WeatherReComm/'}
+                                <Link to={'/weather/WeatherReComm/'+mood}
                                       className="btn btn-lg btn-outline-dark btn-bg-primary text-uppercase mt-3 rounded-pill">
                                     <span className="text-uppercase">Today's LookBook</span>
                                     <span width="20px" height="20px" style={{"marginLeft": "5px"}}>➜</span>
