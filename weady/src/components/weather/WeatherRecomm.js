@@ -68,9 +68,11 @@ function WeatherRecomm(){
                                 </button>
                             </li>
                         }
-                        <span style={{fontWeight: 'bold', color: 'olive', fontSize:'20px', marginBottom:'0px'}}>
-                          {curpage}page/{data.data.totalpage}pages
+                        &nbsp;
+                        <span style={{color: 'olive', fontSize:'20px', marginTop:'5px'}}>
+                          {curpage}page / {data.data.totalpage}pages
                         </span>
+                        &nbsp;
                         {
                             data.data.totalpage && curpage !== data.data.totalpage &&
                             <li className="page-item">
